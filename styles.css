@@ -1,0 +1,384 @@
+:root{
+  /* ✅ Tema claro (más amigable) */
+  --bg:#f5f6fb;
+  --bg2:#eef1f7;
+  --card:#ffffff;
+  --text:#111827;
+  --muted:#6b7280;
+  --line:rgba(17,24,39,.10);
+  --line2:rgba(17,24,39,.16);
+  --accent:#caa29c; /* Sanaré */
+  --shadow: 0 18px 45px rgba(17,24,39,.12);
+  --radius: 18px;
+}
+
+#mmProbe{position:absolute;left:-9999px;top:-9999px;width:210mm;height:297mm;visibility:hidden;}
+*{box-sizing:border-box}
+html,body{
+  margin:0;
+  font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  background: radial-gradient(1000px 520px at 20% -10%, rgba(202,162,156,.28), transparent 60%),
+              radial-gradient(900px 520px at 85% 10%, rgba(17,24,39,.08), transparent 55%),
+              linear-gradient(180deg, var(--bg), var(--bg2));
+  color:var(--text);
+}
+
+.topbar{
+  position:sticky; top:0; z-index:10;
+  backdrop-filter: blur(12px);
+  background: rgba(10,11,14,.72);
+  border-bottom: 1px solid var(--line);
+  display:flex; align-items:center; justify-content:space-between;
+  padding:12px 16px;
+}
+
+.brand{display:flex; align-items:center; gap:12px}
+.brand__logo{height:160px; width:auto}
+.topbar__right{display:flex; gap:10px; align-items:center}
+
+.btn{
+  appearance:none;
+  border:1px solid var(--line2);
+  background: linear-gradient(180deg, rgba(202,162,156,.18), rgba(202,162,156,.08));
+  color:var(--text);
+  padding:10px 12px;
+  border-radius:12px;
+  cursor:pointer;
+  font-weight:700;
+}
+.btn:hover{border-color: rgba(202,162,156,.75)}
+.btn:active{transform: translateY(1px)}
+.btn--ghost{background:transparent}
+
+.wrap{max-width:1200px; margin:22px auto; padding:0 16px 48px}
+
+.card{
+  background: var(--card);
+  border:1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow:hidden;
+}
+
+.card__head{padding:18px 18px 0}
+.card__title{margin:0; font-size:22px; letter-spacing:.2px}
+.card__meta{margin:8px 0 12px; color:var(--muted); font-size:13px}
+
+.grid{display:grid; gap:12px; padding:14px 18px}
+.grid--1{grid-template-columns:1fr}
+.grid--2{grid-template-columns:1fr 1fr}
+.grid--3{grid-template-columns:1.2fr 1.1fr .7fr}
+.grid--4{grid-template-columns:1.4fr 1.4fr .8fr .8fr}
+@media (max-width: 880px){
+  .grid--2,.grid--3,.grid--4{grid-template-columns:1fr}
+}
+
+.field{
+  background: rgba(20,20,25,.02);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding:10px 12px;
+}
+.field label{
+  display:block;
+  font-size:11px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color: var(--muted);
+  margin-bottom:8px;
+}
+.field input,.field select,.field textarea{
+  width:100%;
+  border:1px solid var(--line2);
+  outline:none;
+  background: #ffffff;
+  color: var(--text);
+  padding:10px 10px;
+  border-radius: 12px;
+  font-size:14px;
+}
+.field input::placeholder,.field textarea::placeholder{color: rgba(107,114,128,.75)}
+.field textarea{resize:vertical; min-height:120px}
+.field input:focus,.field select:focus,.field textarea:focus{
+  border-color: rgba(202,162,156,.85);
+  box-shadow: 0 0 0 3px rgba(202,162,156,.16);
+}
+
+.span-2{grid-column: span 2}
+@media (max-width: 880px){
+  .span-2{grid-column:auto}
+}
+
+/* ✅ Ingreso + Egreso juntos */
+.ioGrid{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  padding: 0 18px 10px;
+}
+.ioCard{
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: #ffffff;
+  padding: 12px;
+}
+@media (max-width: 980px){
+  .ioGrid{grid-template-columns: 1fr}
+}
+
+.panel__head{padding: 0 0 10px}
+.panel__head h2{margin:0; font-size:16px}
+.muted{color:var(--muted); font-size:12.5px; margin:6px 0 0}
+
+.tablewrap{padding: 0; overflow:auto}
+.vitals{
+  width:100%;
+  border-collapse: separate;
+  border-spacing:0;
+  min-width: 980px;
+  background: rgba(255,255,255,.03);
+  border:1px solid var(--line);
+  border-radius: 16px;
+  overflow:hidden;
+}
+.vitals th, .vitals td{
+  padding:10px 10px;
+  border-bottom:1px solid var(--line);
+  border-right:1px solid var(--line);
+  vertical-align:middle;
+}
+.vitals th:last-child,.vitals td:last-child{border-right:none}
+.vitals tr:last-child td{border-bottom:none}
+.vitals th{
+  font-size:12px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color: var(--text);
+  background: rgba(17,24,39,.04);
+  position:sticky; top:0;
+}
+.vitals td{background: rgba(0,0,0,.12)}
+.vitals input,.vitals select{
+  width:100%;
+  background: #ffffff;
+  border:1px solid var(--line2);
+  color: var(--text);
+  padding:10px 10px;
+  border-radius: 10px;
+  font-size:13px;
+}
+.vitals input::placeholder{color: rgba(107,114,128,.75)}
+.vitals input:focus,.vitals select:focus{
+  outline:none;
+  border-color: rgba(202,162,156,.85);
+  box-shadow: 0 0 0 3px rgba(202,162,156,.16);
+}
+
+.ecogHelp{display:none}
+.ecogHelp b{color: #7d5d57}
+.ecogHelp .small{display:block; color: var(--muted); font-size:12px; margin-top:4px}
+
+.sep{border:none; border-top:1px solid var(--line); margin: 6px 0 0}
+
+.footerNote{
+  display:flex; gap:10px; align-items:center;
+  padding: 12px 18px 18px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.dot{width:8px; height:8px; border-radius:999px; background: var(--accent); box-shadow: 0 0 0 4px rgba(202,162,156,.18)}
+
+/* Print */
+@media print{
+  @page { size: A4; margin: 0mm; }
+  html, body{
+    width: 210mm;
+    height: 297mm;
+    margin: 0 !important;
+    padding: 0 !important;
+    background:#fff !important;
+    color:#000 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* 👉 Fuerza “todo en una hoja” mediante escala dinámica */
+  :root{ --print-scale: 0.70; }
+  .printWrap{ transform: scale(var(--print-scale)); transform-origin: top left; width: 210mm; }
+/* Quita elementos innecesarios */
+  .topbar{position:static !important; background:#fff !important; color:#000 !important; border:none !important}
+  .btn{display:none !important}
+
+  /* Compacta espacios */
+  .wrap{padding: 0 !important; margin: 0 !important}
+  .card{box-shadow:none !important; border:1px solid #ddd !important; padding: 8px !important}
+  .header h1{font-size: 20px !important; margin: 0 0 2px !important}
+  .sub{margin: 0 0 8px !important}
+
+  .grid3{gap:10px !important}
+  .grid2{gap:10px !important}
+  .field{padding: 8px !important; background:#fff !important}
+  .label{font-size:10px !important}
+  .field input,.field select,.field textarea,
+  .vitals input,.vitals select{
+    background:#fff !important;
+    color:#000 !important;
+    border:1px solid #ddd !important;
+    height: 30px !important;
+    padding: 6px 8px !important;
+    font-size: 11px !important;
+  }
+  textarea{min-height: 64px !important}
+
+  /* tablas */
+  .ioGrid{grid-template-columns: 1fr !important; gap: 10px !important}
+  .sectionTitle{margin: 4px 0 2px !important}
+  .hint{margin: 0 0 6px !important}
+  .vitals{padding: 8px !important}
+  .vitals table{border-collapse: collapse !important}
+  th{font-size:10px !important; padding: 7px 6px !important}
+  td{padding: 7px 6px !important}
+
+  /* evita cortes raros */
+  .card, .field, .vitals, .grid3, .grid2{break-inside: avoid; page-break-inside: avoid}
+}
+
+
+/* ECOG popover (como en el screen) */
+.ecogWrap{position:relative; min-width:120px}
+.ecogPopover{display:none; position:absolute; top:calc(100% + 10px); left:0; width:340px; max-width:70vw; background:#ffffff; color:#111827; padding:14px 14px 10px; border-radius:12px; box-shadow: var(--shadow); border:1px solid rgba(17,24,39,.10); z-index:80}
+.ecogPopover.show{display:block}
+.ecogPopover .ttl{font-weight:800; letter-spacing:.4px; margin:0 0 10px; font-size:14px}
+.ecogList{display:flex; flex-direction:column; gap:8px; margin:0; padding:0; list-style:none}
+.ecogItem{display:grid; grid-template-columns:26px 1fr; gap:10px; align-items:start; padding:8px 10px; border-radius:10px; line-height:1.15}
+.ecogItem .n{font-weight:900}
+.ecogItem.active{background:rgba(17,24,39,.12)}
+.ecogItem .d{opacity:.98}
+@media (max-width:720px){.ecogPopover{width:92vw; left:50%; transform:translateX(-50%);} }
+
+.field select option{background:#ffffff; color:#111827}
+
+
+/* =========================
+   IMPRESIÓN: 1 HOJA (A4)
+   ========================= */
+@media print{
+  @page{ size:A4; margin:8mm; }
+  html,body{ background:#fff !important; }
+  /* Quitar elementos de UI */
+  .topbar__right, .btn, button{ display:none !important; }
+  /* Reducir espacios y sombras */
+  .topbar{ position:static !important; background:#fff !important; border-bottom:0 !important; padding:0 0 6mm 0 !important; }
+  .brand img{ height:22mm !important; } /* logo grande en impresión */
+  .wrap{ padding:0 !important; }
+  .card{ box-shadow:none !important; border:1px solid rgba(0,0,0,.10) !important; }
+  .card__head{ padding:10px 12px !important; }
+  .card__meta{ padding:10px 12px 12px !important; }
+  .panel{ padding:10px 12px !important; }
+  .grid{ gap:10px !important; }
+  .field{ padding:8px 10px !important; }
+  input, select, textarea{
+    font-size:10pt !important;
+    padding:8px 10px !important;
+    border:1px solid rgba(0,0,0,.18) !important;
+  }
+  textarea{ min-height:58px !important; max-height:92px !important; overflow:hidden !important; }
+  /* Tablas compactas */
+  .tablewrap{ overflow:visible !important; }
+  table.vitals{ font-size:9pt !important; }
+  table.vitals th{ padding:8px 8px !important; }
+  table.vitals td{ padding:8px 8px !important; }
+  table.vitals input, table.vitals select{ padding:6px 8px !important; font-size:9pt !important; }
+  /* Evitar saltos */
+  .card, .panel, .tablewrap, table, tr, td{ break-inside:avoid !important; page-break-inside:avoid !important; }
+  /* Escala final para caber en 1 hoja (Chrome) */
+  .printWrap{ zoom:0.82; }
+}
+
+/* Fallback si zoom no aplica */
+@media print and (min-resolution: 0.001dpcm){
+  .printWrap{
+    transform:scale(0.82);
+    transform-origin: top left;
+    width:122%;
+  }
+}
+
+/* =========================
+   IMPRESIÓN: 1 HOJA (A4)
+   ========================= */
+@media print{
+  @page{ size:A4; margin:0; }
+
+  html, body{
+    background:#fff !important;
+    color:#000 !important;
+    margin:0 !important;
+    padding:0 !important;
+    height:auto !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Ocultar botones */
+  .topbar__right, button, .btn{ display:none !important; }
+
+  /* Header simple */
+  .topbar{
+    position:static !important;
+    background:#fff !important;
+    border:none !important;
+    padding:8mm 10mm 4mm 10mm !important;
+    backdrop-filter:none !important;
+  }
+  .brand__logo{ height:26mm !important; width:auto !important; }
+
+  /* Compactar layout */
+  .wrap{
+    max-width:none !important;
+    margin:0 !important;
+    padding:0 10mm 10mm 10mm !important;
+  }
+  .card{
+    box-shadow:none !important;
+    border:1px solid rgba(0,0,0,.12) !important;
+    border-radius:10px !important;
+    padding:10px !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .header h1{ font-size:16pt !important; margin:0 0 2mm 0 !important; }
+  .sub{ margin:0 0 4mm 0 !important; font-size:10pt !important; }
+
+  .grid3,.grid2,.ioGrid,.grid{ gap:6mm !important; }
+  .field{ padding:6px 8px !important; background:#fff !important; }
+  .label{ font-size:8.5pt !important; }
+
+  input, select, textarea{
+    background:#fff !important;
+    color:#000 !important;
+    border:1px solid rgba(0,0,0,.18) !important;
+    font-size:9pt !important;
+    padding:6px 8px !important;
+    height:26px !important;
+  }
+  textarea{
+    min-height:46px !important;
+    max-height:70px !important;
+    overflow:hidden !important;
+  }
+
+  /* Tablas vitales: súper compactas */
+  .vitals{ padding:8px !important; }
+  table.vitals, .vitals table{ width:100% !important; }
+  th{ font-size:8pt !important; padding:5px 5px !important; }
+  td{ padding:5px 5px !important; }
+  table.vitals input, table.vitals select{ font-size:8.5pt !important; height:24px !important; padding:4px 6px !important; }
+
+  /* Escala global para forzar 1 página */
+  body{ zoom:0.63; }
+
+  /* Evitar saltos por bloques */
+  .panel, .field, .vitals, .tablewrap{ break-inside:avoid !important; page-break-inside:avoid !important; }
+}

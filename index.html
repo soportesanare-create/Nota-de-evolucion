@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sanaré | Nota de evolución</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="mmProbe" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <img class="brand__logo" src="assets/logo-sanare.png" alt="Sanaré" />
+    </div>
+    <div class="topbar__right">
+      <button class="btn btn--ghost" id="btnReset" type="button" title="Limpiar datos">Limpiar</button>
+      <button class="btn" id="btnPrint" type="button" title="Imprimir / Guardar PDF">Imprimir</button>
+    </div>
+  </header>
+
+  <main class="wrap printWrap">
+    <section class="card">
+      <div class="card__head">
+        <h1 class="card__title">Nota de evolución</h1>
+        <div class="card__meta">Centro oncológico y alta especialidad</div>
+      </div>
+
+      <div class="grid grid--3">
+        <div class="field">
+          <label>ALERGIAS</label>
+          <input id="alergias" placeholder="Ej. Negados" />
+        </div>
+        <div class="field">
+          <label>SEGURO</label>
+          <input id="seguro" placeholder="Ej. Pago Directo" />
+        </div>
+        <div class="field">
+          <label>ID</label>
+          <input id="folio" placeholder="Opcional" />
+        </div>
+      </div>
+
+      <div class="grid grid--4">
+        <div class="field span-2">
+          <label>NOMBRE</label>
+          <input id="nombre" placeholder="Nombre completo" />
+        </div>
+        <div class="field">
+          <label>EDAD</label>
+          <input id="edad" placeholder="Ej. 23 años" />
+        </div>
+        <div class="field">
+          <label>SEXO</label>
+          <select id="sexo">
+            <option value="">Selecciona…</option>
+            <option>Femenino</option>
+            <option>Masculino</option>
+            <option>Otro</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid grid--1">
+        <div class="field">
+          <label>DIAGNÓSTICO</label>
+          <input id="diagnostico" placeholder="Diagnóstico principal" />
+        </div>
+      </div>
+
+      <!-- ✅ Ingreso y Egreso juntos (cada uno con su tabla) -->
+      <section class="ioGrid" aria-label="Ingreso y egreso">
+      <div class="ioCard" id="ingresoBlock">
+        <div class="panel__head">
+          <h2>Ingreso</h2>
+          <p class="muted">Campos editables. Se guardan automáticamente en este navegador.</p>
+        </div>
+
+        <div class="tablewrap">
+          <table class="vitals" aria-label="Signos vitales ingreso">
+            <thead>
+              <tr>
+                <th>FECHA</th>
+                <th>HORA</th>
+                <th>PESO</th>
+                <th>TALLA</th>
+                <th>TA</th>
+                <th>FC</th>
+                <th>FR</th>
+                <th>SATO2</th>
+                <th>TEMP</th>
+                <th>ECOG</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input data-scope="ingreso" data-key="fecha" placeholder="dd/mmm/aaaa" /></td>
+                <td><input data-scope="ingreso" data-key="hora" placeholder="hh:mm" /></td>
+                <td><input data-scope="ingreso" data-key="peso" placeholder="Ej. 37.3 kg" /></td>
+                <td><input data-scope="ingreso" data-key="talla" placeholder="Ej. 1.52 m" /></td>
+                <td><input data-scope="ingreso" data-key="ta" placeholder="Ej. 110/70" /></td>
+                <td><input data-scope="ingreso" data-key="fc" placeholder="Ej. 116 lpm" /></td>
+                <td><input data-scope="ingreso" data-key="fr" placeholder="Ej. 18 rpm" /></td>
+                <td><input data-scope="ingreso" data-key="sato2" placeholder="Ej. 98 %" /></td>
+                <td><input data-scope="ingreso" data-key="temp" placeholder="Ej. 36.9 °C" /></td>
+                <td>
+                  <div class="ecogWrap"><select data-scope="ingreso" data-key="ecog" class="ecogSelect" aria-label="ECOG ingreso"></select><div class="ecogPopover" id="ecogPopover_ingreso" aria-hidden="true"></div></div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+</div>
+
+      <div class="ioCard" id="egresoBlock">
+        <div class="panel__head">
+          <h2>Egreso</h2>
+          <p class="muted">Campos editables. Se guardan automáticamente en este navegador.</p>
+        </div>
+
+        <div class="tablewrap">
+          <table class="vitals" aria-label="Signos vitales egreso">
+            <thead>
+              <tr>
+                <th>FECHA</th>
+                <th>HORA</th>
+                <th>PESO</th>
+                <th>TALLA</th>
+                <th>TA</th>
+                <th>FC</th>
+                <th>FR</th>
+                <th>SATO2</th>
+                <th>TEMP</th>
+                <th>ECOG</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input data-scope="egreso" data-key="fecha" placeholder="dd/mmm/aaaa" /></td>
+                <td><input data-scope="egreso" data-key="hora" placeholder="hh:mm" /></td>
+                <td><input data-scope="egreso" data-key="peso" placeholder="Ej. 37.3 kg" /></td>
+                <td><input data-scope="egreso" data-key="talla" placeholder="Ej. 1.52 m" /></td>
+                <td><input data-scope="egreso" data-key="ta" placeholder="Ej. 110/70" /></td>
+                <td><input data-scope="egreso" data-key="fc" placeholder="Ej. 116 lpm" /></td>
+                <td><input data-scope="egreso" data-key="fr" placeholder="Ej. 18 rpm" /></td>
+                <td><input data-scope="egreso" data-key="sato2" placeholder="Ej. 98 %" /></td>
+                <td><input data-scope="egreso" data-key="temp" placeholder="Ej. 36.9 °C" /></td>
+                <td>
+                  <div class="ecogWrap"><select data-scope="egreso" data-key="ecog" class="ecogSelect" aria-label="ECOG egreso"></select><div class="ecogPopover" id="ecogPopover_egreso" aria-hidden="true"></div></div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+</div>
+      </section>
+
+      <hr class="sep" />
+
+      <div class="grid grid--2">
+        <div class="field">
+          <label>SÍNTOMAS AL INTERROGATORIO DIRIGIDO</label>
+          <textarea id="sintomas" rows="5" placeholder="Escribe aquí..."></textarea>
+        </div>
+        <div class="field">
+          <label>HALLAZGOS DE LA EXPLORACIÓN FÍSICA</label>
+          <textarea id="hallazgos" rows="5" placeholder="Escribe aquí..."></textarea>
+        </div>
+      </div>
+
+      <div class="grid grid--2">
+        <div class="field">
+          <label>ESQUEMA DE TRATAMIENTO</label>
+          <input id="esquema" placeholder="Ej. Doxorrubicina/Mesna/Ifosfamida" />
+        </div>
+        <div class="field">
+          <label>PRÓXIMA CITA</label>
+          <input id="proxima" placeholder="Ej. 19/FEB/26" />
+        </div>
+      </div>
+
+      <div class="grid grid--1">
+        <div class="field">
+          <label>REPORTE / NOTAS</label>
+          <textarea id="reporte" rows="6" placeholder="Escribe aquí..."></textarea>
+        </div>
+      </div>
+
+      <div class="footerNote">
+        <span class="dot"></span>
+        <span>Sanaré • Formato editable para ingreso/egreso (ECOG incluido)</span>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
