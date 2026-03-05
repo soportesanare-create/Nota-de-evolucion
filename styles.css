@@ -97,6 +97,12 @@ html,body{
   border-radius: 12px;
   font-size:14px;
 }
+
+/* ✅ Campo grande (¿Quién realizó?) */
+.field--lg input{
+  padding:14px 12px;
+  font-size:16px;
+}
 .field input::placeholder,.field textarea::placeholder{color: rgba(107,114,128,.75)}
 .field textarea{resize:vertical; min-height:120px}
 .field input:focus,.field select:focus,.field textarea:focus{

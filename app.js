@@ -98,7 +98,7 @@ function downloadWord(){
     <div class="box">
       <div class="row">
         <div class="col"><div class="lbl">Alergias</div><div>${escapeHtml(v("alergias"))}</div></div>
-        <div class="col"><div class="lbl">Seguro</div><div>${escapeHtml(v("seguro"))}</div></div>
+        <div class="col"><div class="lbl">Fecha</div><div>${escapeHtml(v("seguro"))}</div></div>
         <div class="col"><div class="lbl">No. expediente</div><div>${escapeHtml(v("folio"))}</div></div>
       </div>
       <div style="height:10px"></div>
