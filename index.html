@@ -19,6 +19,7 @@
     <div class="topbar__right">
       <button class="btn btn--ghost" id="btnReset" type="button" title="Limpiar datos">Limpiar</button>
       <button class="btn" id="btnPrint" type="button" title="Imprimir / Guardar PDF">Imprimir</button>
+      <button class="btn btn--ghost" id="btnWord" type="button" title="Descargar en Word (editable)">Descargar Word</button>
     </div>
   </header>
 
@@ -175,6 +176,18 @@
         <div class="field">
           <label>ESQUEMA DE TRATAMIENTO</label>
           <input id="esquema" placeholder="Ej. Doxorrubicina/Mesna/Ifosfamida" />
+
+          <!-- ✅ Nuevo: Intención y Ciclo/Día (se registran y se imprimen) -->
+          <div class="subgrid" aria-label="Intención y ciclo o día">
+            <div class="field field--mini">
+              <label>INTENCIÓN</label>
+              <input id="intencion" placeholder="Ej. Curativo / Paliativo" />
+            </div>
+            <div class="field field--mini">
+              <label>CICLO / DÍA</label>
+              <input id="cicloDia" placeholder="Ej. Ciclo 2 / Día 1" />
+            </div>
+          </div>
         </div>
         <div class="field">
           <label>PRÓXIMA CITA</label>
@@ -189,9 +202,21 @@
         </div>
       </div>
 
+      <div class="grid grid--2">
+        <div class="field">
+          <label>¿Quién realizó?</label>
+          <input id="realizo" type="text" placeholder="Ej. Dra. Karen Elizabeth Gómez Rodríguez" />
+        </div>
+      </div>
+
       <div class="footerNote">
         <span class="dot"></span>
         <span>Sanaré • Formato editable para ingreso/egreso (ECOG incluido)</span>
+      </div>
+
+      <div class="footerDoctors">
+        <div class="footerDoctors__line">Dra. Karen Elizabeth Gómez Rodríguez</div>
+        <div class="footerDoctors__line">Dr. Efraín Camarín Sánchez</div>
       </div>
     </section>
   </main>

@@ -42,8 +42,11 @@ function bindTopFields(state){
     sintomas: ["text","sintomas"],
     hallazgos: ["text","hallazgos"],
     esquema: ["text","esquema"],
+    intencion: ["text","intencion"],
+    cicloDia: ["text","cicloDia"],
     proxima: ["text","proxima"],
     reporte: ["text","reporte"],
+    realizo: ["text","realizo"],
   };
 
   Object.entries(map).forEach(([id, path])=>{
@@ -57,6 +60,145 @@ function bindTopFields(state){
       saveState(state);
     });
   });
+}
+
+function downloadWord(){
+  // Genera un .doc (HTML compatible con Word) para edición.
+  const v = (id)=> (document.getElementById(id)?.value ?? "").trim();
+  const vit = (scope,key)=>{
+    const el = document.querySelector(`[data-scope="${scope}"][data-key="${key}"]`);
+    return (el?.value ?? "").trim();
+  };
+
+  const nombre = v("nombre") || "nota";
+  const safeName = nombre.replace(/[^a-z0-9\-_ ]/gi, "").trim().replace(/\s+/g,"_") || "nota";
+  const filename = `Nota_Evolucion_${safeName}.doc`;
+
+  const html = `<!doctype html>
+  <html><head><meta charset="utf-8">
+  <title>Nota de evolución</title>
+  <style>
+    body{font-family:Arial,Helvetica,sans-serif; color:#111;}
+    h1{margin:0 0 4px; font-size:18px;}
+    .meta{margin:0 0 12px; font-size:12px; color:#444;}
+    .box{border:1px solid #ddd; padding:10px; margin:10px 0; border-radius:8px;}
+    .lbl{font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:#666; margin-bottom:4px;}
+    .row{display:flex; gap:10px; flex-wrap:wrap;}
+    .col{flex:1; min-width:220px;}
+    table{width:100%; border-collapse:collapse; font-size:12px;}
+    th,td{border:1px solid #ddd; padding:6px; text-align:left; vertical-align:top;}
+    th{background:#f5f5f5;}
+    .muted{color:#666; font-size:11px;}
+    .pre{white-space:pre-wrap;}
+  </style></head>
+  <body>
+    <h1>Nota de evolución</h1>
+    <div class="meta">Sanaré • Centro oncológico y alta especialidad</div>
+
+    <div class="box">
+      <div class="row">
+        <div class="col"><div class="lbl">Alergias</div><div>${escapeHtml(v("alergias"))}</div></div>
+        <div class="col"><div class="lbl">Seguro</div><div>${escapeHtml(v("seguro"))}</div></div>
+        <div class="col"><div class="lbl">ID</div><div>${escapeHtml(v("folio"))}</div></div>
+      </div>
+      <div style="height:10px"></div>
+      <div class="row">
+        <div class="col" style="flex:2"><div class="lbl">Nombre</div><div>${escapeHtml(v("nombre"))}</div></div>
+        <div class="col"><div class="lbl">Edad</div><div>${escapeHtml(v("edad"))}</div></div>
+        <div class="col"><div class="lbl">Sexo</div><div>${escapeHtml(v("sexo"))}</div></div>
+      </div>
+      <div style="height:10px"></div>
+      <div><div class="lbl">Diagnóstico</div><div>${escapeHtml(v("diagnostico"))}</div></div>
+    </div>
+
+    <div class="box">
+      <div class="lbl">Ingreso (signos vitales)</div>
+      <table>
+        <thead><tr>
+          <th>Fecha</th><th>Hora</th><th>Peso</th><th>Talla</th><th>TA</th><th>FC</th><th>FR</th><th>SatO2</th><th>Temp</th><th>ECOG</th>
+        </tr></thead>
+        <tbody><tr>
+          <td>${escapeHtml(vit("ingreso","fecha"))}</td>
+          <td>${escapeHtml(vit("ingreso","hora"))}</td>
+          <td>${escapeHtml(vit("ingreso","peso"))}</td>
+          <td>${escapeHtml(vit("ingreso","talla"))}</td>
+          <td>${escapeHtml(vit("ingreso","ta"))}</td>
+          <td>${escapeHtml(vit("ingreso","fc"))}</td>
+          <td>${escapeHtml(vit("ingreso","fr"))}</td>
+          <td>${escapeHtml(vit("ingreso","sato2"))}</td>
+          <td>${escapeHtml(vit("ingreso","temp"))}</td>
+          <td>${escapeHtml(vit("ingreso","ecog"))}</td>
+        </tr></tbody>
+      </table>
+      <div style="height:10px"></div>
+      <div class="lbl">Egreso (signos vitales)</div>
+      <table>
+        <thead><tr>
+          <th>Fecha</th><th>Hora</th><th>Peso</th><th>Talla</th><th>TA</th><th>FC</th><th>FR</th><th>SatO2</th><th>Temp</th><th>ECOG</th>
+        </tr></thead>
+        <tbody><tr>
+          <td>${escapeHtml(vit("egreso","fecha"))}</td>
+          <td>${escapeHtml(vit("egreso","hora"))}</td>
+          <td>${escapeHtml(vit("egreso","peso"))}</td>
+          <td>${escapeHtml(vit("egreso","talla"))}</td>
+          <td>${escapeHtml(vit("egreso","ta"))}</td>
+          <td>${escapeHtml(vit("egreso","fc"))}</td>
+          <td>${escapeHtml(vit("egreso","fr"))}</td>
+          <td>${escapeHtml(vit("egreso","sato2"))}</td>
+          <td>${escapeHtml(vit("egreso","temp"))}</td>
+          <td>${escapeHtml(vit("egreso","ecog"))}</td>
+        </tr></tbody>
+      </table>
+      <div class="muted" style="margin-top:6px">Nota: ECOG se exporta como el valor seleccionado (0-5).</div>
+    </div>
+
+    <div class="box">
+      <div class="row">
+        <div class="col"><div class="lbl">Síntomas al interrogatorio dirigido</div><div class="pre">${escapeHtml(v("sintomas"))}</div></div>
+        <div class="col"><div class="lbl">Hallazgos de la exploración física</div><div class="pre">${escapeHtml(v("hallazgos"))}</div></div>
+      </div>
+    </div>
+
+    <div class="box">
+      <div class="row">
+        <div class="col"><div class="lbl">Esquema de tratamiento</div><div>${escapeHtml(v("esquema"))}</div></div>
+        <div class="col"><div class="lbl">Próxima cita</div><div>${escapeHtml(v("proxima"))}</div></div>
+      </div>
+      <div style="height:10px"></div>
+      <div class="row">
+        <div class="col"><div class="lbl">Intención</div><div>${escapeHtml(v("intencion"))}</div></div>
+        <div class="col"><div class="lbl">Ciclo / Día</div><div>${escapeHtml(v("cicloDia"))}</div></div>
+      </div>
+    </div>
+
+    <div class="box">
+      <div class="lbl">Reporte / Notas</div>
+      <div class="pre">${escapeHtml(v("reporte"))}</div>
+      <div style="height:10px"></div>
+      <div class="lbl">Quién realizó</div>
+      <div>${escapeHtml(v("realizo"))}</div>
+    </div>
+    <div class="muted" style="margin-top:14px;">Dra. Karen Elizabeth Gómez Rodríguez<br/>Dr. Efraín Camarín Sánchez</div>
+  </body></html>`;
+
+  const blob = new Blob([html], { type: "application/msword" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url), 1500);
+}
+
+function escapeHtml(str){
+  return String(str ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/\"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 }
 
 function populateEcogSelects(){
@@ -126,6 +268,10 @@ function bindVitals(state){
 
 function bindActions(){
   $("#btnPrint").addEventListener("click", ()=>window.print());
+  const wordBtn = $("#btnWord");
+  if(wordBtn){
+    wordBtn.addEventListener("click", downloadWord);
+  }
   $("#btnReset").addEventListener("click", ()=>{
     if(!confirm("¿Seguro que deseas limpiar todos los datos guardados en este navegador?")) return;
     localStorage.removeItem(STORAGE_KEY);

@@ -109,6 +109,26 @@ html,body{
   .span-2{grid-column:auto}
 }
 
+/* ✅ Sub-sección debajo de Esquema de tratamiento */
+.subgrid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:12px;
+  margin-top:12px;
+}
+@media (max-width: 880px){
+  .subgrid{grid-template-columns: 1fr}
+}
+.field.field--mini{
+  padding:8px 10px;
+}
+.field.field--mini label{
+  margin-bottom:6px;
+}
+.field.field--mini input{
+  padding:9px 10px;
+}
+
 /* ✅ Ingreso + Egreso juntos */
 .ioGrid{
   display:grid;
@@ -381,4 +401,18 @@ html,body{
 
   /* Evitar saltos por bloques */
   .panel, .field, .vitals, .tablewrap{ break-inside:avoid !important; page-break-inside:avoid !important; }
+}
+
+
+.footerDoctors{
+  margin-top:10px;
+  text-align:center;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.4;
+}
+.footerDoctors__line{ margin-top:2px; }
+
+@media print{
+  .footerDoctors{ font-size: 11px; }
 }
